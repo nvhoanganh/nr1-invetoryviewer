@@ -1,0 +1,35 @@
+# enter  values here for testing
+@account =
+
+@apikey =
+# get env config
+###
+POST https://api.newrelic.com/graphql
+Content-Type: application/json
+API-Key: {{apikey}}
+X-REQUEST-TYPE: GraphQL
+
+query {
+  actor {
+    account(id: {{account}}) {
+      agentEnvironment {
+        environmentAttributes (filter: {contains: "Version"}, cursor: ""){
+          nextCursor
+          results {
+            attributes {
+              attribute
+              value
+            }
+            details {
+              name
+              host
+              language
+              id
+            }
+            applicationGuids
+          }
+        }
+      }
+    }
+  }
+}
