@@ -1,5 +1,5 @@
 const YOU_RPM_ACCOUNT = 000000;
-let APIKEY = 'NRAK-.....';
+let APIKEY;
 
 if (typeof $http === 'undefined') {
   var $http = require("request");
