@@ -3,7 +3,7 @@
 ```bash
 npm install
 
-# edit the index.js add the account Id and the USER Api key (line 6)
-node . > output.csv
+# replace the ACCOUNTID and APIKEY below (user api key, not the ingest key from https://one.newrelic.com/api-keys)
+ACCOUNTID=xxxx APIKEY=yyyy node . > output.csv
 
 ```

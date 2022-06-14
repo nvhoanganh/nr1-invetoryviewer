@@ -1,9 +1,9 @@
-const YOU_RPM_ACCOUNT = 000000;
+const ACCOUNTID = process.env.ACCOUNTID;
 let APIKEY;
 
 if (typeof $http === 'undefined') {
   var $http = require("request");
-  APIKEY = 'NRAK-.....';
+  APIKEY = process.env.APIKEY;
 } else {
   APIKEY = $secure.APIKEY
 }
@@ -124,7 +124,13 @@ async function getEnvironmentAttributes(accountId, apikey) {
   return flatten;
 }
 
-getEnvironmentAttributes(YOU_RPM_ACCOUNT, APIKEY).then(x => {
+// console.log(`Getting environment information for account ${ACCOUNTID} using api key '${APIKEY}'`);
+getEnvironmentAttributes(ACCOUNTID, APIKEY).then(x => {
+  if (x.length === 0) {
+    console.log('No environment attributes found');
+    return;
+  }
+
   const headers = Object.keys(x[0]);
   let csv = headers.join(',') + '\n';
 
