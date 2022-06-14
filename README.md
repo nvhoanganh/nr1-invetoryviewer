@@ -1,4 +1,4 @@
-# List all APM Services and their attributes (New Relic version, run time version, etc)
+# List all APM Services and their key attributes (Language, NR and Run time version, etc)
 
 ```bash
 # clone this repo and install dependencies
