@@ -1,9 +1,12 @@
-# How to run this
+# List all APM Services and their attributes (New Relic version, run time version, etc)
 
 ```bash
+# clone this repo and install dependencies
 npm install
 
-# replace the ACCOUNTID and APIKEY below (user api key, not the ingest key from https://one.newrelic.com/api-keys)
-ACCOUNTID=xxxx APIKEY=yyyy node . > output.csv
+# replace the ACCOUNTID and USERAPIKEY below (from https://one.newrelic.com/api-keys)
+ACCOUNTID=xxxx USERAPIKEY=yyyy node . > output.csv
 
 ```
+
+![](2022-06-14-10-40-26.png)

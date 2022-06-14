@@ -1,11 +1,11 @@
 const ACCOUNTID = process.env.ACCOUNTID;
-let APIKEY;
+let USERAPIKEY;
 
 if (typeof $http === 'undefined') {
   var $http = require("request");
-  APIKEY = process.env.APIKEY;
+  USERAPIKEY = process.env.USERAPIKEY;
 } else {
-  APIKEY = $secure.APIKEY
+  USERAPIKEY = $secure.USERAPIKEY
 }
 
 const genericServiceCall = function (responseCodes, options, success) {
@@ -124,8 +124,7 @@ async function getEnvironmentAttributes(accountId, apikey) {
   return flatten;
 }
 
-// console.log(`Getting environment information for account ${ACCOUNTID} using api key '${APIKEY}'`);
-getEnvironmentAttributes(ACCOUNTID, APIKEY).then(x => {
+getEnvironmentAttributes(ACCOUNTID, USERAPIKEY).then(x => {
   if (x.length === 0) {
     console.log('No environment attributes found');
     return;
