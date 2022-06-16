@@ -16,6 +16,7 @@ import {
 } from 'nr1';
 
 import { DataContext } from './data'
+import DisplayResult from './result'
 
 function AppRoot() {
   const {
@@ -25,7 +26,8 @@ function AppRoot() {
     selectedAccountId,
     appsScanned,
     scanComplete,
-    scanAccount
+    scanAccount,
+    scanResult
   } = useContext(DataContext);
   console.log("🚀 ~ file: index.js ~ line 52 ~ DataProvider ~ accounts", accounts)
   return (
@@ -42,7 +44,7 @@ function AppRoot() {
                   fontSize: '18px'
                 }}
               >
-                Active Gap Detector
+                APM Apps Scanner
               </HeadingText>
             </StackItem>
 
@@ -92,11 +94,12 @@ function AppRoot() {
               </StackItem>
             )}
           </Stack>
-          {!scanning && scanComplete && (<div>Results
-          </div>)}
+          {!scanning && scanComplete && (
+            <DisplayResult scanResult={scanResult} />
+          )}
         </LayoutItem>
       </Layout>
-    </div>
+    </div >
   );
 }
 
