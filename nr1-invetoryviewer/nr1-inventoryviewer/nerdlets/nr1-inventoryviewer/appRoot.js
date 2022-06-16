@@ -27,6 +27,7 @@ function AppRoot() {
     appsScanned,
     scanComplete,
     scanAccount,
+    scanAll,
     scanResult
   } = useContext(DataContext);
   console.log("🚀 ~ file: index.js ~ line 52 ~ DataProvider ~ accounts", accounts)
@@ -35,25 +36,12 @@ function AppRoot() {
       <Layout style={{ paddingLeft: '10px', paddingTop: '5px' }}>
         <LayoutItem>
           <Stack directionType={Stack.DIRECTION_TYPE.VERTICAL} fullWidth>
-            <StackItem style={{ width: '100%' }}>
-              <HeadingText
-                type={HeadingText.TYPE.HEADING_3}
-                style={{
-                  paddingBottom: '0px',
-                  marginBottom: '1px',
-                  fontSize: '18px'
-                }}
-              >
-                APM Apps Scanner
-              </HeadingText>
-            </StackItem>
-
             <StackItem style={{ marginBottom: '5px' }}>
               <HeadingText
                 style={{ marginBottom: '5px' }}
-                type={HeadingText.TYPE.HEADING_4}
+                type={HeadingText.TYPE.HEADING_3}
               >
-                Scan
+                Select account to scan
               </HeadingText>
 
               <AccountPicker
@@ -78,6 +66,7 @@ function AppRoot() {
                   type={Button.TYPE.PRIMARY}
                   disabled={scanning}
                   sizeType={Button.SIZE_TYPE.SMALL}
+                  onClick={scanAll}
                 >
                   Scan {accounts?.length} accounts
                 </Button>

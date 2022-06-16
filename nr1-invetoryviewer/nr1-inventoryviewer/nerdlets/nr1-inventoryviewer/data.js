@@ -11,6 +11,7 @@ function DataProvider({ children }) {
     console.log('loading accounts...');
     NerdGraphQuery.query({ query: accountsQuery }).then(value => {
       const accounts = value?.data?.actor?.accounts || [];
+      console.log("🚀 ~ file: data.js ~ line 14 ~ NerdGraphQuery.query ~ accounts", accounts)
       setRootState(curr => ({ ...curr, accounts }));
     });
   }, []);
@@ -84,7 +85,43 @@ function DataProvider({ children }) {
       ...curr,
       scanning: false,
       scanComplete: true,
-      scanResult: result
+      scanResult: result.map(x => ({
+        ...x,
+        acccountId: accountId
+      }))
+    }));
+  };
+
+  const scanAll = async () => {
+    setRootState(curr => ({
+      ...curr,
+      scanning: true,
+      scanComplete: false
+    }));
+
+    let results = [];
+    for (let index = 0; index < rootState.accounts.length; index++) {
+      const acc = rootState.accounts[index];
+      console.log(`scanning account ${acc.id}`);
+      const result = await getEnvironmentAttributes(acc.id);
+      const withAccId = result.map(x => ({
+        ...x,
+        acccountId: acc.id
+      }));
+
+      results = [
+        ...results,
+        ...withAccId
+      ];
+    }
+
+    console.log("🚀 ~ file: data.js ~ line 103 ~ scanAll ~ results", results)
+
+    setRootState(curr => ({
+      ...curr,
+      scanning: false,
+      scanComplete: true,
+      scanResult: results
     }));
   };
 
@@ -93,7 +130,8 @@ function DataProvider({ children }) {
       value={{
         ...rootState,
         setRootState,
-        scanAccount: scanAccount
+        scanAccount: scanAccount,
+        scanAll: scanAll
       }}
     >
       {children}
