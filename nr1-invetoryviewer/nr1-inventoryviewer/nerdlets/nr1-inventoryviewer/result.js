@@ -27,6 +27,7 @@ import {
 
 function DisplayResult({ scanResult }) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [sort, setSort] = useState({ by: '', direction: TableHeaderCell.SORTING_TYPE.NONE });
 
   return (
     <>
@@ -44,19 +45,27 @@ function DisplayResult({ scanResult }) {
           <TableHeaderCell value={({ item }) => item.guid}>
             Guid
           </TableHeaderCell>
-          <TableHeaderCell value={({ item }) => item.name} sortable={true} onClick={(e, sort) => {
-            console.log(e, sort);
-          }}>
+          <TableHeaderCell value={({ item }) => item.name}
+            sortable={true}
+            onClick={(e, sort) => setSort({ by: 'name', direction: sort.nextSortingType })}
+            sortingType={sort.by === 'name' ? sort.direction : TableHeaderCell.SORTING_TYPE.NONE}
+          >
             Name
           </TableHeaderCell>
-          <TableHeaderCell value={({ item }) => item.host} sortable={true}>
+          <TableHeaderCell value={({ item }) => item.host}
+            sortable={true}
+            onClick={(e, sort) => setSort({ by: 'host', direction: sort.nextSortingType })}
+            sortingType={sort.by === 'host' ? sort.direction : TableHeaderCell.SORTING_TYPE.NONE}
+          >
             Host
           </TableHeaderCell>
-          <TableHeaderCell value={({ item }) => item.language} sortable={true}>
+          <TableHeaderCell value={({ item }) => item.language}
+            sortable={true}
+            onClick={(e, sort) => setSort({ by: 'language', direction: sort.nextSortingType })}
+            sortingType={sort.by === 'language' ? sort.direction : TableHeaderCell.SORTING_TYPE.NONE}>
             Language
           </TableHeaderCell>
           <TableHeaderCell>
-            Action
           </TableHeaderCell>
         </TableHeader>
 
