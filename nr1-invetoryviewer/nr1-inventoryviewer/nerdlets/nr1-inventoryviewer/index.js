@@ -1,6 +1,21 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { PlatformStateContext, NerdletStateContext, nerdlet, Icon } from 'nr1';
-
+import {
+  NerdGraphQuery, PlatformStateContext, NerdletStateContext, nerdlet,
+  Stack,
+  StackItem,
+  HeadingText,
+  Layout,
+  LayoutItem,
+  EmptyState,
+  BlockText,
+  Popover,
+  PopoverBody,
+  PopoverTrigger,
+  Icon,
+  Button,
+  AccountPicker
+} from 'nr1';
+import { accountsQuery } from './queries';
 const DataContext = React.createContext();
 
 function NerdletRoot() {
@@ -40,15 +55,31 @@ function NerdletRoot() {
   return (
     <div>
       <DataProvider {...platformContext} {...nerdletContext}>
-        <div>Hello world!!</div>
+        <AppRoot />
       </DataProvider>
     </div>
   );
 }
 
+function AppRoot() {
+  const { accounts } = useContext(DataContext);
+  console.log("🚀 ~ file: index.js ~ line 52 ~ DataProvider ~ accounts", accounts)
+  return (<div>
+    Inventory Viewer app
+  </div>)
+}
 
 function DataProvider({ children }) {
   const [rootState, setRootState] = useState({});
+
+  useEffect(() => {
+    console.log('loading accounts...');
+    NerdGraphQuery.query({ query: accountsQuery }).then(value => {
+      const accounts = value?.data?.actor?.accounts || [];
+      setRootState(curr => ({ ...curr, accounts }));
+    });
+
+  }, []);
   return (
     <DataContext.Provider
       value={{
