@@ -19,7 +19,7 @@ function NerdletRoot() {
           iconType: Icon.TYPE.INTERFACE__SIGN__EXCLAMATION,
           onClick: () =>
             window.open(
-              'https://github.com/newrelic-experimental/nr1-gaps/issues/new?assignees=&labels=bug%2C+needs-triage&template=bug_report.md&title=',
+              'https://github.com/nvhoanganh/nr1-invetoryviewer/issues/new?assignees=&labels=bug%2C+needs-triage&template=bug_report.md&title=',
               '_blank'
             )
         },
@@ -29,7 +29,7 @@ function NerdletRoot() {
           iconType: Icon.TYPE.PROFILES__EVENTS__FAVORITE__WEIGHT_BOLD,
           onClick: () =>
             window.open(
-              'https://github.com/newrelic-experimental/nr1-gaps/issues/new?assignees=&labels=enhancement%2C+needs-triage&template=enhancement.md&title=',
+              'https://github.com/nvhoanganh/nr1-invetoryviewer/issues/new?assignees=&labels=enhancement%2C+needs-triage&template=enhancement.md&title=',
               '_blank'
             )
         }
