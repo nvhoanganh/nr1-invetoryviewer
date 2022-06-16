@@ -8,10 +8,8 @@ function DataProvider({ children }) {
   const [rootState, setRootState] = useState({});
 
   useEffect(() => {
-    console.log('loading accounts...');
     NerdGraphQuery.query({ query: accountsQuery }).then(value => {
       const accounts = value?.data?.actor?.accounts || [];
-      console.log("🚀 ~ file: data.js ~ line 14 ~ NerdGraphQuery.query ~ accounts", accounts)
       setRootState(curr => ({ ...curr, accounts }));
     });
   }, []);
@@ -26,7 +24,7 @@ function DataProvider({ children }) {
       const records = result.data.actor.account.agentEnvironment.environmentAttributes.results.map(x => ({
         guid: x.applicationGuids[0],
         ...x.details,
-        name: `"${x.details.name}"`,
+        name: x.details.name,
         ...x.attributes.reduce((prev, curr) => {
           if (keys.indexOf(curr.attribute) < 0) {
             keys.push(curr.attribute)
@@ -34,7 +32,7 @@ function DataProvider({ children }) {
 
           return {
             ...prev,
-            [curr.attribute]: '"' + curr.value.replaceAll('\n', '').replaceAll('"', '') + '"',
+            [curr.attribute]: curr.value.replaceAll('\n', '').replaceAll('"', ''),
           }
         }, {})
       }));
@@ -87,7 +85,7 @@ function DataProvider({ children }) {
       scanComplete: true,
       scanResult: result.map(x => ({
         ...x,
-        acccountId: accountId
+        accountId: accountId
       }))
     }));
   };
@@ -106,7 +104,7 @@ function DataProvider({ children }) {
       const result = await getEnvironmentAttributes(acc.id);
       const withAccId = result.map(x => ({
         ...x,
-        acccountId: acc.id
+        accountId: acc.id
       }));
 
       results = [
@@ -114,8 +112,6 @@ function DataProvider({ children }) {
         ...withAccId
       ];
     }
-
-    console.log("🚀 ~ file: data.js ~ line 103 ~ scanAll ~ results", results)
 
     setRootState(curr => ({
       ...curr,
