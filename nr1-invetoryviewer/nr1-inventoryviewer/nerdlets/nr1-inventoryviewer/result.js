@@ -65,6 +65,12 @@ function DisplayResult({ scanResult }) {
 
       <StackItem style={{ marginBottom: '20px', marginTop: '20px' }}>
         <TextField type={TextField.TYPE.SEARCH} label="Search" labelInline placeholder="e.g. Java, sock" value={search} onChange={(e) => setSearch(e.target.value)} />
+        <Button
+          style={{ float: 'right', marginRight: '20px'}}
+          sizeType={Button.SIZE_TYPE.SMALL}
+        >
+          Export to CSV
+        </Button>
       </StackItem>
 
       <Table items={filtered(scanResult, search)}>
