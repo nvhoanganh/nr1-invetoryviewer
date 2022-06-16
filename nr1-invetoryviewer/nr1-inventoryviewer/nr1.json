@@ -1,6 +1,6 @@
 {
     "schemaType": "NERDPACK",
     "id": "44e35242-f6cf-4765-be16-bbd52836ede4",
-    "displayName": "Nr1Inventoryviewer",
-    "description": "Nerdpack nr1-inventoryviewer"
+    "displayName": "APM Inventory Viewer",
+    "description": "Display all monitored APM applications and their attributes"
 }

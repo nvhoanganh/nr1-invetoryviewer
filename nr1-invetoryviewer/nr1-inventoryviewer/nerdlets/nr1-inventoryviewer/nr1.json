@@ -1,6 +1,6 @@
 {
   "schemaType": "NERDLET",
   "id": "nr1-inventoryviewer",
-  "displayName": "Nr1Inventoryviewer",
-  "description": ""
+  "displayName": "APM Inventory Viewer",
+  "description": "Display all monitored APM applications and their attributes"
 }
