@@ -30,7 +30,7 @@ function AppRoot() {
     scanAll,
     scanResult
   } = useContext(DataContext);
-  console.log("🚀 ~ file: index.js ~ line 52 ~ DataProvider ~ accounts", accounts)
+
   return (
     <div>
       <Layout style={{ paddingLeft: '10px', paddingTop: '5px' }}>

@@ -14,7 +14,7 @@ function DataProvider({ children }) {
     });
   }, []);
 
-  async function getEnvironmentAttributes(accountId) {
+  async function getEnvironmentAttributes(accountId, setRootState) {
     let hasNext = true;
     let results = [];
     let nextCursor = '';
@@ -41,6 +41,11 @@ function DataProvider({ children }) {
         ...results,
         ...records
       ];
+
+      setRootState(curr => ({
+        ...curr,
+        appsScanned: curr.appsScanned + records.length,
+      }));
 
       nextCursor = result.data.actor.account.agentEnvironment.environmentAttributes.nextCursor;
       hasNext = !!nextCursor;
@@ -74,10 +79,11 @@ function DataProvider({ children }) {
     setRootState(curr => ({
       ...curr,
       scanning: true,
+      appsScanned: 0,
       scanComplete: false
     }));
 
-    const result = await getEnvironmentAttributes(accountId);
+    const result = await getEnvironmentAttributes(accountId, setRootState);
 
     setRootState(curr => ({
       ...curr,
@@ -94,6 +100,7 @@ function DataProvider({ children }) {
     setRootState(curr => ({
       ...curr,
       scanning: true,
+      appsScanned: 0,
       scanComplete: false
     }));
 
@@ -101,7 +108,7 @@ function DataProvider({ children }) {
     for (let index = 0; index < rootState.accounts.length; index++) {
       const acc = rootState.accounts[index];
       console.log(`scanning account ${acc.id}`);
-      const result = await getEnvironmentAttributes(acc.id);
+      const result = await getEnvironmentAttributes(acc.id, setRootState);
       const withAccId = result.map(x => ({
         ...x,
         accountId: acc.id
