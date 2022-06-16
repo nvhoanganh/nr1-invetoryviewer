@@ -25,6 +25,7 @@ import {
   EntityTitleTableRowCell,
   JsonChart
 } from 'nr1';
+import fileDownload from 'js-file-download';
 
 function getLanguageSpecificVerions(data) {
   if (data.language === 'nodejs') return data['Node.js version'];
@@ -51,6 +52,22 @@ function DisplayResult({ scanResult }) {
     );
   }
 
+  const exportToCsv = (data) => {
+    if (data.length === 0) {
+      return;
+    }
+
+    const headers = Object.keys(data[0]);
+    let csv = headers.join(',') + '\n';
+
+    for (let u = 0; u < data.length; u++) {
+      const row = Object.values(data[u]).map(x => `"${x}"`);
+      csv += row.join(',') + '\n';
+    }
+
+    fileDownload(csv, `export.csv`);
+  }
+
   return (
     <>
       <Modal hidden={!modalOpen} onClose={() => setModalOpen(false)}>
@@ -66,8 +83,9 @@ function DisplayResult({ scanResult }) {
       <StackItem style={{ marginBottom: '20px', marginTop: '20px' }}>
         <TextField type={TextField.TYPE.SEARCH} label="Search" labelInline placeholder="e.g. Java, sock" value={search} onChange={(e) => setSearch(e.target.value)} />
         <Button
-          style={{ float: 'right', marginRight: '20px'}}
+          style={{ float: 'right', marginRight: '20px' }}
           sizeType={Button.SIZE_TYPE.SMALL}
+          onClick={() => exportToCsv(filtered(scanResult, search))}
         >
           Export to CSV
         </Button>
