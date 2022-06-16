@@ -16,7 +16,9 @@ import {
   AccountPicker
 } from 'nr1';
 import { accountsQuery } from './queries';
-const DataContext = React.createContext();
+import AppRoot from './appRoot';
+
+export const DataContext = React.createContext();
 
 function NerdletRoot() {
   useEffect(() => {
@@ -59,14 +61,6 @@ function NerdletRoot() {
       </DataProvider>
     </div>
   );
-}
-
-function AppRoot() {
-  const { accounts } = useContext(DataContext);
-  console.log("🚀 ~ file: index.js ~ line 52 ~ DataProvider ~ accounts", accounts)
-  return (<div>
-    Inventory Viewer app
-  </div>)
 }
 
 function DataProvider({ children }) {
